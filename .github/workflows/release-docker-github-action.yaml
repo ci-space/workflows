@@ -17,9 +17,11 @@ on:
         default: "${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}"
 
 jobs:
-  release:
+  build:
     name: release
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.new-version }}
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -66,9 +68,17 @@ jobs:
           git commit -m "chore: update image version ${{ steps.version.outputs.new-version }} in action.yaml"
           git push
 
+  tag:
+    name: release
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
       - name: Create Tag
         uses: negz/create-tag@v1
         with:
-          version: ${{ steps.version.outputs.new-version }}
+          version: ${{ needs.build.outputs.version }}
           message: ''
           token: ${{ secrets.GITHUB_TOKEN }}
