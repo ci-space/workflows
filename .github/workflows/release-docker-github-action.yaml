@@ -82,8 +82,11 @@ jobs:
           ref: ${{ needs.build.outputs.commit }}
 
       - name: Create Tag
-        uses: negz/create-tag@v1
+        uses: joutvhu/create-tag@v1
         with:
-          version: ${{ needs.build.outputs.version }}
-          message: ''
-          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ needs.build.outputs.version }}
+          tag_sha: ${{ needs.build.outputs.commit }}
+          message: ${{ needs.build.outputs.version }}
+          on_tag_exists: error
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
