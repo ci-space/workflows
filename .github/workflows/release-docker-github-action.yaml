@@ -18,7 +18,7 @@ on:
 
 jobs:
   build:
-    name: release
+    name: build
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.new-version }}
@@ -69,12 +69,14 @@ jobs:
           git push
 
   tag:
-    name: release
+    name: tag
     runs-on: ubuntu-latest
     needs: [build]
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
 
       - name: Create Tag
         uses: negz/create-tag@v1
