@@ -14,6 +14,8 @@ on:
 #          - minor
 #          - patch
       repo:
+        required: true
+        type: string
         default: ${{ github.repository }}
 
 jobs:
