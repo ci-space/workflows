@@ -14,7 +14,7 @@ on:
       repo:
         required: false
         type: string
-        default: "${{ github.event.repository.owner }}/${{ github.event.repository.name }}"
+        default: "${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}"
 
 jobs:
   release:
