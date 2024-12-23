@@ -8,11 +8,11 @@ on:
       version:
         description: version
         required: true
-        type: choice
-        options:
-          - major
-          - minor
-          - patch
+        type: string # choice
+#        options:
+#          - major
+#          - minor
+#          - patch
       repo:
         default: ${{ github.repository }}
 
