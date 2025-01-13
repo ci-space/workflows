@@ -58,7 +58,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          platforms: ${{ github.event.inputs.platforms }}
+          platforms: ${{ inputs.platforms }}
           build-args: |
             APP_VERSION=${{ steps.version.outputs.new-version }}
             BUILD_TIME=${{ steps.values.outputs.timestamp }}
